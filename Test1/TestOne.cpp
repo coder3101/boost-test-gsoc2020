@@ -7,13 +7,10 @@
 #include <random>
 #include <utility>
 
-#define USE_1028_UINT
+#define USE_1024_UINT // Comment this line and we will use 2048 bit unsigned
 
-// If you uncomment it, we will use 2048 bit unsigned.
-// But that's insanity and that number is 7 times more than the number of atoms
-// in the universe.
 
-#if defined(USE_1028_UINT)
+#if defined(USE_1024_UINT)
 
 using boost::multiprecision::checked_uint1024_t;
 using ump = checked_uint1024_t;  // We always avoid overflow
@@ -57,16 +54,16 @@ class StopWatch {
 };
 
 /**
- * @brief This function prompts on stdin if user would like to provide the 1024
+ * @brief This function prompts on stdin if user would like to provide the 1024/2048
  * bit unsigned number
  *
- * @return std::optional<u1024>, has value if user entered otherwise optional
+ * @return std::optional<ump>, has value if user entered otherwise optional
  * does not have any value
  */
 std::optional<ump> ask_user() {
   std::string res;
 
-#if defined(USE_1028_UINT)
+#if defined(USE_1024_UINT)
   std::cout << "Would you like to enter 1024 bit number yourself?\n";
 #else
   std::cout << "Would you like to enter 2048 bit number yourself?\n";
